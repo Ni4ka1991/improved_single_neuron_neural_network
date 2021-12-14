@@ -32,8 +32,9 @@ system( "clear" )
 #y = w * np.sqrt(x) + b
 Y = []
 x = [ 0,   5,   15,  20,  25,  30,  35  ]
-w = [ 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ]
+w = [ 0.0, 0.1, 0.2, 0.3, 0.4, 0.5, 1 ]
 b = 2
+c = 4
 for i in range(7):
 #    b = np.random.normal()
 #    w = np.random.normal()
@@ -41,7 +42,7 @@ for i in range(7):
 #    y = np.sqrt(x[i]) * w[i] + np.sqrt(b[i])
 #    y = np.sqrt(x[i])
 #    y = np.cbrt(x[i])
-    y = np.sqrt(np.sqrt(x[i])) + b  #the best result
+    y = w[6] * np.sqrt(np.sqrt(x[i]))  #not bad
     Y.append(y)
 
 #print(Y)

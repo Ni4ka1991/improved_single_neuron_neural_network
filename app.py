@@ -17,26 +17,50 @@ temp_c = [ 0, 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C
 #plt.show()
 
 # GO-GO ###########################################################################################
+
+def sigmoida( var ):
+    return 1 / ( 1 + np.exp(- var ))
+
+# NEURON 
+
+data_quantity = len( time_m )
 w = 11
+b = 0
+a = 0
 Y = []
+S = []
+ERR = []
 
-for i in range( len( time_m )):
- y = w * np.sqrt( np.sqrt( time_m[i] ))
- Y.append(y)
 
-system( "clear" )
+def neuronFire( x ):
+    global w, b, a
+    y = w * np.sqrt( np.sqrt( x ))
+    return y
+
+def calc( ):
+   
+
+
+for i in range( data_quantity ):
+    neuronFire( data_quantity )
 
 #view data func
+
 def print_differences( list_lenght ):
-    print( "        temp_c       |   Y   |  ERROR  ")
-    print("  ________ ________________________________________")
+    system( "clear" )
+    print( "        temp_c       |   Y   |  ERROR_Y             |        ERROR_S  ")
+    print("  _________________________________________________________________________")
     for i in range( list_lenght ):
-        print(f"{Y[i]:20} | {temp_c[i]:5} | {abs(Y[i] - temp_c[i]):20}")
+        print(f"{Y[i]:20} | {temp_c[i]:5} | {ERR[i]:20} | {abs(S[i] - temp_c[i]):20}")
 #############
 
 
-data_quantity = len( time_m )
-print_differences( data_quantity, )
+
+
+
+
+
+print_differences( data_quantity )
 
 
 

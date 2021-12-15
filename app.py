@@ -47,17 +47,19 @@ temp_c = [ 0, 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C
 
 # GO-GO ###########################################################################################
 
-w = 2
-x = 5
+w = 11
+b = 0
 Y = []
 
 for i in range( len( time_m )):
- y = w * np.sqrt( np.sqrt( time_m[i] ))
+ y = w * np.sqrt( np.sqrt( time_m[i] )) + b
  Y.append(y)
 
 system( "clear" )
-print(Y)
 
+plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+plt.plot( time_m, Y, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
+plt.show()
 
 
 

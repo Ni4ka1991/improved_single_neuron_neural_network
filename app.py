@@ -46,13 +46,14 @@ temp_c = [ 0, 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C
 ###################################################################################################
 
 # GO-GO ###########################################################################################
-
+#a = 2
 w = 11
 b = 0
 Y = []
 
 for i in range( len( time_m )):
- y = w * np.sqrt( np.sqrt( time_m[i] )) + b
+ #y = a * w * w * np.sqrt( np.sqrt( time_m[i] )) + b
+ y = np.sin(time_m[i] *  .1 ) * w * np.sqrt( np.sqrt( time_m[i] )) + b
  Y.append(y)
 
 system( "clear" )

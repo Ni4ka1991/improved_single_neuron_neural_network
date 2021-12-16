@@ -9,9 +9,9 @@ plt.style .use( 'seaborn-whitegrid' )
 
 
 
-#EXPERIMENT DATA
-time_m = [ 0, 5,  10,  20,  60 ]      # boiler running time (min)
-temp_c = [ 0, 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C
+#EXPERIMENT DATA  !!! REAL DATA !!!
+time_m = [ 0, 5,  10,  20,  60 ]      # boiler running time ( min ) 
+temp_c = [ 0, 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C 
 
 #plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
@@ -23,7 +23,7 @@ def sigmoida( var ):
 
 # NEURON 
 
-data_quantity = len( time_m )
+data_quantity = len( time_m ) # lenght of real data list
 w = 11
 b = 0
 a = 0
@@ -31,20 +31,28 @@ Y = []
 S = []
 ERR = []
 
-
+# PREDICTED DATA !!!
 def neuronFire( x ):
     global w, b, a
     y = w * np.sqrt( np.sqrt( x ))
     return y
 
-def calc( ):
+
+def create_predicted_data_list( len_of_data ):
+    for i in range( len_of_data ):
+        Y.append( neuronFire( time_m[i] ))
+    return Y
+
+create_predicted_data_list( data_quantity )
+
+system( "clear" )
+print(Y)
+
+
+def meanError( Y_real, Y_predicted ):
+    pass    
    
 
-
-for i in range( data_quantity ):
-    neuronFire( data_quantity )
-
-#view data func
 
 def print_differences( list_lenght ):
     system( "clear" )
@@ -60,7 +68,7 @@ def print_differences( list_lenght ):
 
 
 
-print_differences( data_quantity )
+#print_differences( data_quantity )
 
 
 

@@ -27,7 +27,7 @@ data_quantity = len( time_m ) # lenght of real data list
 w = 11
 b = 0
 a = 0
-Y = []
+Y = []   #an empty list of predicted data
 S = []
 ERR = []
 
@@ -52,23 +52,6 @@ print(Y)
 def meanError( Y_real, Y_predicted ):
     pass    
    
-
-
-def print_differences( list_lenght ):
-    system( "clear" )
-    print( "        temp_c       |   Y   |  ERROR_Y             |        ERROR_S  ")
-    print("  _________________________________________________________________________")
-    for i in range( list_lenght ):
-        print(f"{Y[i]:20} | {temp_c[i]:5} | {ERR[i]:20} | {abs(S[i] - temp_c[i]):20}")
-#############
-
-
-
-
-
-
-
-#print_differences( data_quantity )
 
 
 

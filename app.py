@@ -64,23 +64,73 @@ def meanError( err_list, len_of_data ):
     return E
 ##
 
+##
+def neuron_work( len_of_data ):
+    create_predicted_data_list( len_of_data )
+    errors_list( temp_c, Y, len_of_data )
+    return meanError( ERR, len_of_data )
+##    
+
+
+# TRAIN !!!!!
+num_epochs = 7
+max_error = 10
+
+
+Errors = [100]
+Weights = [w]
+Biases = [b]
+
+
+for epoch in range( num_epochs ):
+    print(f"##### epoch NR {epoch + 1} ########")
+    
 
 
 
 
 
-create_predicted_data_list( data_quantity )
-errors_list( temp_c, Y, data_quantity )
-print( meanError( ERR, data_quantity ))
+
+
+print( neuron_work( data_quantity ))
 
 
 
 
 
 
-#plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
-#plt.plot( time_m, Y, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
-#plt.show()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

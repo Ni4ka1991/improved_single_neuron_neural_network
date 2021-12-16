@@ -32,26 +32,49 @@ S = []
 ERR = []
 
 # PREDICTED DATA !!!
+##
 def neuronFire( x ):
     global w, b, a
     y = w * np.sqrt( np.sqrt( x ))
     return y
+##
 
 
+##
 def create_predicted_data_list( len_of_data ):
     for i in range( len_of_data ):
         Y.append( neuronFire( time_m[i] ))
     return Y
+##
+
+
+
+# ERRORS PROCESSING !!! 
+##
+def errors_list( Y_real, Y_predicted, len_of_data ):
+    for i in range( len_of_data ):
+        ERR.append( abs( Y_real[i] - Y_predicted[i] ))
+    return ERR
+##
+
+##
+def meanError( err_list, len_of_data ):
+    for i in range( len_of_data ):
+        E = sum( err_list ) / len_of_data
+    return E
+##
+
+
+
+
+
 
 create_predicted_data_list( data_quantity )
+errors_list( temp_c, Y, data_quantity )
+print( meanError( ERR, data_quantity ))
 
-system( "clear" )
-print(Y)
 
 
-def meanError( Y_real, Y_predicted ):
-    pass    
-   
 
 
 

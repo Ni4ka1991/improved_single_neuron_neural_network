@@ -79,12 +79,17 @@ max_error = 10
 
 Errors = [100]
 Weights = [w]
-Biases = [b]
-
+#Biases = [b]
+#A = [a]
 
 for epoch in range( num_epochs ):
     print(f"##### epoch NR {epoch + 1} ########")
-    
+    dW = np.random.normal() # w >= 0
+    w += dW
+#    dB = np.random.normal()
+#    b += dB
+#    dA = np.random.normal()
+#    a += dA
 
 
 

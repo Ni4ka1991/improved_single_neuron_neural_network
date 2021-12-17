@@ -93,16 +93,23 @@ for epoch in range( num_epochs ):
     
     #random
     dW = np.random.normal()
-    w += dW
+    w += dW                   #add some number
     #
 
     #save result
     Weights.append( w )
-    ME = neuron_work( w, data_quantity )
-    Errors.append( ME )
+    ME = neuron_work( w, data_quantity )     #ME - mean error
+    Errors.append( ME * 10 )                 # *10 - наглядней числа
     #
+#    print(Weights)
+#    print(Errors)
 
     #logic
+    if Errors[-1] > Errors[-2]:
+        print(Weights[-1])
+        print(Weights[-2])
+    else:
+        print("BINGO")
     
 
 

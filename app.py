@@ -104,15 +104,21 @@ for epoch in range( num_epochs ):
     if Errors[-1] < Errors[-2]:
         #метод ловли льва в пустыне или Метод Больцано—Вейерштрасса
         delta_weights = abs( Weights[-1] - Weights[-2] )
-        dw = delta_weights / 2
+        print( f"delta_weights = {delta_weights}" )
+        dW = delta_weights / 2
+        print( f"dW = {dW}" )
 #        w += dw if Weights[-1] > Weights[-2] else w -= dw
         if Weights[-1] > Weights[-2]:
-            w += dw
+            w[epoch] += dW
         else:
-            w -= dw
-    Weights.append( w )
+            w[epoch] -= dW
+    Weights.append( w[epoch] )
+    print( f"w[epoch]")
     ME = neuron_work( w, data_quantity )     #ME - mean error
     Errors.append( ME * 10 )                 # *10 - наглядней числа
+    
+#    else:
+#        print("by-by!")
     print(Errors)
 
 

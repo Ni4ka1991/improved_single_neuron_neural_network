@@ -82,7 +82,13 @@ Weights = [w]
 #Biases = [b]
 #A = [a]
 
+#print( errors_list( temp_c, temp_c , data_quantity ))
+#input("hit enter...")
+
+
+system( "clear" )
 for epoch in range( num_epochs ):
+    print()
     print(f"##### epoch NR {epoch + 1} ########")
     dW = np.random.normal() # w >= 0
     w += dW
@@ -92,11 +98,11 @@ for epoch in range( num_epochs ):
 #    a += dA
 
     Y_predicted = create_predicted_data_list( data_quantity ) #=>  new Y_pred list
-    print("Predicted list:" )
-    print( Y_predicted )
+#    print("Predicted list:" )
+#    print( Y_predicted )
     errors_list( temp_c, Y_predicted, data_quantity )         # => new ERR list
-    print("Errors list:" )
-    print( errors_list )
+#    print("Errors list:" )
+#    print(errors_list( temp_c, Y_predicted, data_quantity ))         # => new ERR list
 #    meanError( ERR, data_quantity )
 #    print( meanError )
 

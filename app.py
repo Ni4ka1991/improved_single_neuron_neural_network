@@ -101,15 +101,15 @@ for epoch in range( num_epochs ):
     ME = neuron_work( w, data_quantity )     #ME - mean error
     Errors.append( ME * 10 )                 # *10 - наглядней числа
     #
-#    print(Weights)
-#    print(Errors)
+    print( f"Weights = {Weights}" )
+    print( f"Errors = {Errors}" )
 
     #logic
     if Errors[-1] > Errors[-2]:
-        print(Weights[-1])
-        print(Weights[-2])
+        w = Weights[-2] 
+        print( f"NOT GOOD {Errors[-2]} >>>> {Errors[-1] }")
     else:
-        print("BINGO")
+        print( f"BINGO {Errors[-2]} >>>> {Errors[-1] }")
     
 
 

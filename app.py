@@ -31,18 +31,18 @@ S = []
 
 # PREDICTED DATA !!!
 ##
-def neuronFire( x ):
-    global w, b, a
+def neuronFire( w, x ):
+#    global w, b, a
     y = w * np.sqrt( np.sqrt( x ))
     return y
 ##
 
 
 ##
-def create_predicted_data_list( len_of_data ):
+def create_predicted_data_list( w, len_of_data ):
     Y = []   #an empty list of predicted data
     for i in range( len_of_data ):
-        Y.append( neuronFire( time_m[i] ))
+        Y.append( neuronFire( w, time_m[i] ))
     return Y
 ##
 
@@ -65,10 +65,11 @@ def meanError( err_list, len_of_data ):
 ##
 
 ##
-def neuron_work( len_of_data ):
-    create_predicted_data_list( len_of_data )
-    errors_list( temp_c, Y, len_of_data )
+def neuron_work( w, len_of_data ):
+    Y_predicted = create_predicted_data_list( w, len_of_data )
+    ERR = errors_list( temp_c, Y_predicted, len_of_data )
     return meanError( ERR, len_of_data )
+#    print( f" MEAN ERROR for epoch nr.{epoch + 1} = {meanError( ERR, len_of_data )}")
 ##    
 
 
@@ -82,35 +83,30 @@ Weights = [w]
 #Biases = [b]
 #A = [a]
 
-#print( errors_list( temp_c, temp_c , data_quantity ))
-#input("hit enter...")
-
 
 system( "clear" )
 for epoch in range( num_epochs ):
+    #view
     print()
     print(f"##### epoch NR {epoch + 1} ########")
-    dW = np.random.normal() # w >= 0
+    #
+    
+    #random
+    dW = np.random.normal()
     w += dW
-#    dB = np.random.normal()
-#    b += dB
-#    dA = np.random.normal()
-#    a += dA
+    #
 
-    Y_predicted = create_predicted_data_list( data_quantity ) #=>  new Y_pred list
-#    print("Predicted list:" )
-#    print( Y_predicted )
-    errors_list( temp_c, Y_predicted, data_quantity )         # => new ERR list
-#    print("Errors list:" )
-#    print(errors_list( temp_c, Y_predicted, data_quantity ))         # => new ERR list
-#    meanError( ERR, data_quantity )
-#    print( meanError )
+    #save result
+    Weights.append( w )
+    ME = neuron_work( w, data_quantity )
+    Errors.append( ME )
+    #
+
+    #logic
+    
 
 
 
-
-
-#print( neuron_work( data_quantity ))
 
 
 

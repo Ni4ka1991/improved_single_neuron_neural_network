@@ -86,32 +86,34 @@ Weights = [w]
 
 system( "clear" )
 
+#random
+dW = np.random.normal()
+w += dW                   #add some number
+    
+Weights.append( w )
+ME = neuron_work( w, data_quantity )     #ME - mean error
+Errors.append( ME * 10 )                 # *10 - наглядней числа
+    
+
 for epoch in range( num_epochs ):
     #view
     print()
     print(f"##### epoch NR {epoch + 1} ########")
     #
     
-    #random
-    dW = np.random.normal()
-    w += dW                   #add some number
-    #
-    
-    Weights.append( w )
-    ME = neuron_work( w, data_quantity )     #ME - mean error
-    Errors.append( ME * 10 )                 # *10 - наглядней числа
-    
-
     if Errors[-1] < Errors[-2]:
         #метод ловли льва в пустыне или Метод Больцано—Вейерштрасса
         delta_weights = abs( Weights[-1] - Weights[-2] )
-        k = delta_weights / 2
-        w += k if Weights[-1] > Weights[-2] else w -= k
-#            w += k
-#        else:
-#            w -= k
-#    print(Errors)
-
+        dw = delta_weights / 2
+#        w += dw if Weights[-1] > Weights[-2] else w -= dw
+        if Weights[-1] > Weights[-2]:
+            w += dw
+        else:
+            w -= dw
+    Weights.append( w )
+    ME = neuron_work( w, data_quantity )     #ME - mean error
+    Errors.append( ME * 10 )                 # *10 - наглядней числа
+    print(Errors)
 
 
 

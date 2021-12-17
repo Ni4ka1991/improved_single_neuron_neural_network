@@ -85,6 +85,7 @@ Weights = [w]
 
 
 system( "clear" )
+
 for epoch in range( num_epochs ):
     #view
     print()
@@ -102,6 +103,8 @@ for epoch in range( num_epochs ):
     
 
     if Errors[-1] < Errors[-2]:
+        #метод ловли льва в пустыне или Метод Больцано—Вейерштрасса
+        delta_weights = abs( Weights[-1] - Weights[-2] )
         w = Weights[-2] + (Weights[-1] - Weights[-2] )/2
     
     print(Errors)

@@ -27,9 +27,7 @@ data_quantity = len( time_m ) # lenght of real data list
 w = 11
 b = 0
 a = 0
-Y = []   #an empty list of predicted data
 S = []
-ERR = []
 
 # PREDICTED DATA !!!
 ##
@@ -42,6 +40,7 @@ def neuronFire( x ):
 
 ##
 def create_predicted_data_list( len_of_data ):
+    Y = []   #an empty list of predicted data
     for i in range( len_of_data ):
         Y.append( neuronFire( time_m[i] ))
     return Y
@@ -52,6 +51,7 @@ def create_predicted_data_list( len_of_data ):
 # ERRORS PROCESSING !!! 
 ##
 def errors_list( Y_real, Y_predicted, len_of_data ):
+    ERR = []
     for i in range( len_of_data ):
         ERR.append( abs( Y_real[i] - Y_predicted[i] ))
     return ERR
@@ -91,13 +91,20 @@ for epoch in range( num_epochs ):
 #    dA = np.random.normal()
 #    a += dA
 
+    Y_predicted = create_predicted_data_list( data_quantity ) #=>  new Y_pred list
+    print("Predicted list:" )
+    print( Y_predicted )
+    errors_list( temp_c, Y_predicted, data_quantity )         # => new ERR list
+    print("Errors list:" )
+    print( errors_list )
+#    meanError( ERR, data_quantity )
+#    print( meanError )
 
 
 
 
 
-
-print( neuron_work( data_quantity ))
+#print( neuron_work( data_quantity ))
 
 
 

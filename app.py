@@ -88,18 +88,18 @@ Step = []
 system( "clear" )
 
 ##
-def real_root_isolation( ran ):
-    for i in range( ran ):
-        dW = np.random.normal()
-        w += dW
-        Weights.append( w )
-        ME = neuron_work( w, data_quantity )     #ME - mean error
-        Errors.append( ME )                 # *10 - наглядней чи
-    return min(Errors)
+for i in range( 22 ):
+    dW = np.random.normal()
+    w += dW
+    Weights.append( w )
+    ME = neuron_work( w, data_quantity )     #ME - mean error
+    Errors.append( ME )                 # *10 - наглядней чи
 
+
+index_min_err = list.index(min(Errors), Errors[0], Errors[-1])
 ##
 
-print( real_root_isolation( 22 ))
+print( index_min_err )
 
 #plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()

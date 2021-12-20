@@ -96,10 +96,21 @@ for i in range( 22 ):
     Errors.append( ME )                 # *10 - наглядней чи
 
 
-index_min_err = list.index(min(Errors), Errors[0], Errors[-1])
+np_Errors  = np.array(Errors)
+np_Weights = np.array(Weights)
+
+for i in range(len(Errors)):
+    a = np.hstack((np_Errors[i], np_Weights[i]))
+    print(a)
+#    input("hit ...")
+
+
+#all_data = np.hstack(( np_Errors[i], np_Weights[i] )) 
+
+#arr = np.amin(np_Errors, axis = )
 ##
 
-print( index_min_err )
+print( a )
 
 #plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()

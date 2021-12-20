@@ -87,37 +87,20 @@ Step = []
 
 system( "clear" )
 
+d = {}
+
 ##
+
+
+
 for i in range( 22 ):
     dW = np.random.normal()
     w += dW
-    Weights.append( w )
     ME = neuron_work( w, data_quantity )     #ME - mean error
-    Errors.append( ME )                 # *10 - наглядней чи
-
-
-np_Errors  = np.array(Errors)
-np_Weights = np.array(Weights)
-
-data_table = np.array([]) 
-print(type(data_table))
-print(type(np_Errors))
-u = 12
-#data_table.append(u)
-#print(data_table)
-
-for i in range(len(Errors)):
-    a = np.hstack((np_Errors[i], np_Weights[i]))
-#    data_table.append(a)
-#    input("hit ...")
-
-
-#all_data = np.hstack(( np_Errors[i], np_Weights[i] )) 
-
-#arr = np.amin(np_Errors, axis = )
-##
-
-#print( data_table )
+    d[ Weights[i] ] = Errors[i]
+#    Weights.append( w )
+#    Errors.append( ME )                 # *10 - наглядней чи
+print(d)
 
 #plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()

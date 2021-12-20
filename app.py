@@ -87,29 +87,20 @@ Weights = [w]
 system( "clear" )
 
 #random
-print( f"Weight = {Weights[-1]:20}; || Errors = {Errors[-1]:20}" )
-dW = np.random.normal()
-w += dW                   #add some number
-Weights.append( w )
-ME = neuron_work( w, data_quantity )     #ME - mean error
-Errors.append( ME * 10 )                 # *10 - наглядней числа
-print( f"Weight = {Weights[-1]:20}; || Errors = {Errors[-1]:20}" )
-if Errors[-1] < Errors[-2]:
 
-
-
-dW = np.random.normal()
-w += dW                   #add some number
-Weights.append( w )
-ME = neuron_work( w, data_quantity )     #ME - mean error
-Errors.append( ME * 10 )                 # *10 - наглядней числа
-print( f"Weight = {Weights[-1]:20}; || Errors = {Errors[-1]:20}" )
-
-if Errors[-1] < Errors[-2]:
-    Weights[-1]
-
-
-
+for i in range(6):
+    dW = np.random.normal()
+    w += dW                   #add some number
+#
+#save result
+    Weights.append( w )
+    ME = neuron_work( w, data_quantity )     #ME - mean error
+    Errors.append( ME * 10 )                 # *10 - наглядней чи
+#
+#print(Weights)
+plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+plt.show()
+#print(Errors)
 
 
 

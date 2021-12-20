@@ -86,35 +86,24 @@ Weights = [w]
 
 system( "clear" )
 
-#random
+##
+a = 5
+b = 16
 
-dW = 0
-for i in range(16):
-#    print(f"dW = {dW:20}  |  w = {Weights[i]:20} : e = {Errors[i]:20} " )
-    dW = np.random.normal()
-    w += dW                   #add some number
-#
-#save result
-    Weights.append( w )
-    ME = neuron_work( w, data_quantity )     #ME - mean error
-    Errors.append( ME )                 # *10 - наглядней чи
-#
+w = a
+Weights.append( w )
+ME = neuron_work( w, data_quantity )     #ME - mean error
+Errors.append( ME )                 # *10 - наглядней чи
 
-#print( f"w = {Weights[-1]:20} | e = {Errors[-1]:20}" )
-
-
-    a = Weights[-1]
-    b = Weights[-2]
-    print(f"a = {a:20}, b = {b:20} | {Errors[-1]:20}" )
-#    if Errors[-1] < Errors[-2]:
-#        a = Weights[-1]
-#        print(Weights[-1])
+w = b
+Weights.append( w )
+ME = neuron_work( w, data_quantity )     #ME - mean error
+Errors.append( ME )                 # *10 - наглядней чи
+##
+print(Weights)
+print(Errors)
 
 
-
-#plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
-#plt.show()
-#print(Errors)
 
 
 

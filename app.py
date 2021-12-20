@@ -98,10 +98,15 @@ for i in range( 22 ):
     data_table[w] = ME
 
 data = list( data_table.items( ))
-
 np_data_table = np.array( data )
 
-print( np_data_table )
+#print( np_data_table )
+#result = np.array([])
+a = np.amin( np_data_table, axis = 0, out = result )
+print(a)
+#print(result)
+
+
 #plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
 

@@ -78,8 +78,9 @@ num_epochs = 7
 max_error = 10
 
 
-Errors = [100]
-Weights = [w]
+Errors = []
+Weights = []
+Step = []
 #Biases = [b]
 #A = [a]
 
@@ -87,22 +88,21 @@ Weights = [w]
 system( "clear" )
 
 ##
-a = 5
-b = 16
+def real_root_isolation( ran ):
+    for i in range( ran ):
+        dW = np.random.normal()
+        w += dW
+        Weights.append( w )
+        ME = neuron_work( w, data_quantity )     #ME - mean error
+        Errors.append( ME )                 # *10 - наглядней чи
+    return min(Errors)
 
-w = a
-Weights.append( w )
-ME = neuron_work( w, data_quantity )     #ME - mean error
-Errors.append( ME )                 # *10 - наглядней чи
-
-w = b
-Weights.append( w )
-ME = neuron_work( w, data_quantity )     #ME - mean error
-Errors.append( ME )                 # *10 - наглядней чи
 ##
-print(Weights)
-print(Errors)
 
+print( real_root_isolation( 22 ))
+
+#plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+#plt.show()
 
 
 

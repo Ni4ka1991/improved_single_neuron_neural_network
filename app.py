@@ -89,12 +89,13 @@ Step = []
 
 system( "clear" )
 
-data_table = {}
+#data_table = {}
 
 ##
 k=0 
-while k < 20:
-    for i in range( 22 ):
+while k < 5:
+    data_table = {}
+    for i in range( 10 ):
         dW = np.random.normal()
         w += dW
         ME = neuron_work( w, data_quantity )     #ME - mean error
@@ -102,7 +103,8 @@ while k < 20:
 
     data = list( data_table.items( ))
     np_data_table = np.array( data )
-
+    print("####")
+    print(np_data_table)
     w_min, e_min = np_data_table.min( axis = 0 )
     i, j = np.argmin(np_data_table, axis = 0 ) #индекс минимального элемента в столбце сверху-j
     w_min_error = np_data_table[ j, 0 ]

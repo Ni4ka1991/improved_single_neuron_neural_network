@@ -101,10 +101,9 @@ data = list( data_table.items( ))
 np_data_table = np.array( data )
 
 #print( np_data_table )
-#result = np.array([])
-a = np.amin( np_data_table, axis = 0, out = result )
-print(a)
-#print(result)
+w_min, e_min = np_data_table.min( axis = 0 )
+print( f" w_min = {w_min}" )
+#print( f" e_min = {e_min}" )
 
 
 #plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )

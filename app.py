@@ -80,6 +80,8 @@ max_error = 10
 
 Errors = []
 Weights = []
+W_min_errors = []
+
 Step = []
 #Biases = [b]
 #A = [a]
@@ -90,21 +92,23 @@ system( "clear" )
 data_table = {}
 
 ##
+k=0 
+while k < 20:
+    for i in range( 22 ):
+        dW = np.random.normal()
+        w += dW
+        ME = neuron_work( w, data_quantity )     #ME - mean error
+        data_table[w] = ME
 
-for i in range( 22 ):
-    dW = np.random.normal()
-    w += dW
-    ME = neuron_work( w, data_quantity )     #ME - mean error
-    data_table[w] = ME
+    data = list( data_table.items( ))
+    np_data_table = np.array( data )
 
-data = list( data_table.items( ))
-np_data_table = np.array( data )
-
-#print( np_data_table )
-w_min, e_min = np_data_table.min( axis = 0 )
-print( f" w_min = {w_min}" )
-#print( f" e_min = {e_min}" )
-
+    w_min, e_min = np_data_table.min( axis = 0 )
+    i, j = np.argmin(np_data_table, axis = 0 ) #индекс минимального элемента в столбце сверху-j
+    w_min_error = np_data_table[ j, 0 ]
+    W_min_errors.append( w_min_error )
+    k += 1
+print( W_min_errors )
 
 #plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()

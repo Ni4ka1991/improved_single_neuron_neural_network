@@ -87,21 +87,21 @@ Step = []
 
 system( "clear" )
 
-d = {}
+data_table = {}
 
 ##
-
-
 
 for i in range( 22 ):
     dW = np.random.normal()
     w += dW
     ME = neuron_work( w, data_quantity )     #ME - mean error
-    d[ Weights[i] ] = Errors[i]
-#    Weights.append( w )
-#    Errors.append( ME )                 # *10 - наглядней чи
-print(d)
+    data_table[w] = ME
 
+data = list( data_table.items( ))
+
+np_data_table = np.array( data )
+
+print( np_data_table )
 #plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
 

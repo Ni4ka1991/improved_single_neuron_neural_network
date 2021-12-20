@@ -103,10 +103,12 @@ for i in range(16):
 #print( f"w = {Weights[-1]:20} | e = {Errors[-1]:20}" )
 
 
-
-    if Errors[-1] < Errors[-2]:
-        a = Weights[-1]
-        print(Weights[-1])
+    a = Weights[-1]
+    b = Weights[-2]
+    print(f"a = {a:20}, b = {b:20} | {Errors[-1]:20}" )
+#    if Errors[-1] < Errors[-2]:
+#        a = Weights[-1]
+#        print(Weights[-1])
 
 
 

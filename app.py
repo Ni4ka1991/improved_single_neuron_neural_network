@@ -76,13 +76,7 @@ def neuron_work( w, len_of_data ):
 # TRAIN !!!!!
 num_epochs = 7
 max_error = 10
-
-
-Errors = []
-Weights = []
 W_min_errors = []
-
-Step = []
 #Biases = [b]
 #A = [a]
 
@@ -106,9 +100,6 @@ while k < 20:
     data = list( data_table.items( ))            #convert dict to list
     np_data_table = np.array( data )             #convert list to np.array
     
-    #view np.array
-    print("####")
-    print(np_data_table)
     
     #search w with min error in np.array
     w_min, e_min = np_data_table.min( axis = 0 )
@@ -119,9 +110,13 @@ while k < 20:
     W_min_errors.append( w_min_error )
     
     k += 1
+#P.S. разброс значений в каждом отдельном цикле while получается существенный. От -64 до +70 
+
+a = min( W_min_errors )
+b = max( W_min_errors )
+print( f"a(min) = {a} | b(max) = {b}" )
 
 
-print( W_min_errors )
 
 
 #plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )

@@ -89,28 +89,40 @@ Step = []
 
 system( "clear" )
 
-#data_table = {}
+# REAL-ROOT ISOLATION
 
-##
-k=0 
-while k < 5:
-    data_table = {}
-    for i in range( 10 ):
+k = 0 
+while k < 20:
+    data_table = {}                             #create an empty dictionary
+    
+    # w + random => calc Y_pred(w+dW) => calc ME(Y_pred) => create dict{w+dW : ME} 
+    for i in range( 40 ):
         dW = np.random.normal()
         w += dW
         ME = neuron_work( w, data_quantity )     #ME - mean error
         data_table[w] = ME
-
-    data = list( data_table.items( ))
-    np_data_table = np.array( data )
+    
+    #convert output dictionary to np.array
+    data = list( data_table.items( ))            #convert dict to list
+    np_data_table = np.array( data )             #convert list to np.array
+    
+    #view np.array
     print("####")
     print(np_data_table)
+    
+    #search w with min error in np.array
     w_min, e_min = np_data_table.min( axis = 0 )
     i, j = np.argmin(np_data_table, axis = 0 ) #индекс минимального элемента в столбце сверху-j
     w_min_error = np_data_table[ j, 0 ]
+    
+    #create a list of w's with min err
     W_min_errors.append( w_min_error )
+    
     k += 1
+
+
 print( W_min_errors )
+
 
 #plt.plot( Weights, Errors, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()

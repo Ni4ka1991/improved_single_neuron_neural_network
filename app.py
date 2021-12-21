@@ -116,23 +116,35 @@ w_min = min( W_min_errors )
 w_max = max( W_min_errors )
 
 ###
-for i in range( num_epochs ):
-    w_half = ( w_min + w_max ) / 2
-    me_half  = neuron_work( w_half, data_quantity )
-    me_w_min = neuron_work( w_min,  data_quantity ) 
-    me_w_max = neuron_work( w_max,  data_quantity ) 
+u = 0
+while( u < num_epochs ):
+    for i in range( num_epochs ):
+        w_half = ( w_min + w_max ) / 2
+        me_w_half = neuron_work( w_half,  data_quantity ) 
+        me_w_min  = neuron_work( w_min,   data_quantity ) 
+        me_w_max  = neuron_work( w_max,   data_quantity ) 
     
-    if( me_half <= max_error ):
-        print( f"W_supper_hero (me_half)  = {me_half:20}" )
-        break
-    elif( me_w_min <= max_error ):
-        print( f"W_supper_hero (me_w_min) = {me_w_min:20}" )
-        break
-    elif( me_w_max <= max_error ):
-        print( f"W_supper_hero (me_w_max) = {me_w_max:20} " )
-        break
-    else:
-        print("Let's try again!")
+        if( me_w_min <= max_error ):
+            print( f"W_supper_hero (me_w_min) = {me_w_min:20}" )
+            break
+        elif( me_w_max <= max_error ):
+            print( f"W_supper_hero (me_w_max) = {me_w_max:20} " )
+            break
+    
+        else:
+            if( me_w_half > me_w_min ):
+                w_max = w_half
+            else:
+                w_min = w_half
+#            print("Let's try again!")
+    u += 1
+
+
+
+
+
+
+
 
 
 print( f"w_half = {w_half:20} | me_half = {me_half:20}" )

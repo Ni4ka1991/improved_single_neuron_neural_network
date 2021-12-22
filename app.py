@@ -161,14 +161,7 @@ for i in range( num_epochs ):
     
     else:
         w_half = ( w_max + w_min ) / 2
-        print( f" w_min = {w_min:20} : w_max = {w_max:20} : w_half = {w_half:20}" )       
         w_max = w_half        
-        print( f" w_min = {w_min:20} : w_max = {w_max:20} " )       
-
-input( "hit Enter" )
-system( "clear" )
-print( f" w_min = {w_min: 20} " )
-print()
 
 #### END ####
 

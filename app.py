@@ -69,8 +69,8 @@ def neuron_work( w, len_of_data ):
 
 
 # TRAIN !!!!!
-num_epochs = 7
-max_error = 2
+num_epochs = 5
+max_error = 1
 W_min_errors = []
 
 #Biases = [b]
@@ -116,28 +116,35 @@ w_min = min( W_min_errors )
 w_max = max( W_min_errors )
 
 ###
-u = 0
-while( u < num_epochs ):
-    for i in range( num_epochs ):
-        w_half = ( w_min + w_max ) / 2
-        me_w_half = neuron_work( w_half,  data_quantity ) 
-        me_w_min  = neuron_work( w_min,   data_quantity ) 
-        me_w_max  = neuron_work( w_max,   data_quantity ) 
+for i in range( num_epochs ):
+    print( "\n" + "#" * 12 )
+    print( f"Epoch NR {i + 1}" )
+    w_half = ( w_min + w_max ) / 2
+    me_w_half = neuron_work( w_half,  data_quantity ) 
+    me_w_min  = neuron_work( w_min,   data_quantity ) 
+    me_w_max  = neuron_work( w_max,   data_quantity ) 
+    print( f"me_w_min = {me_w_min:20}" )
+    print( f"me_w_max = {me_w_max:20}" )
+    print( f"me_w_half = {me_w_half:20}" )
     
-        if( me_w_min <= max_error ):
-            print( f"W_supper_hero (me_w_min) = {me_w_min:20}" )
-            break
-        elif( me_w_max <= max_error ):
-            print( f"W_supper_hero (me_w_max) = {me_w_max:20} " )
-            break
+    if( me_w_min <= max_error ):
+        print( f"\nW_supper_hero (me_w_min) = {me_w_min:20}\n" )
+        break
+    elif( me_w_max <= max_error ):
+        print( f"\nW_supper_hero (me_w_max) = {me_w_max:20}\n" )
+        break
     
+    elif( me_w_half <= max_error ):
+        print( f"\nW_supper_hero (me_w_half) = {me_w_half:20}\n" )
+        break
+    
+    else:
+        if( me_w_half > me_w_min ):
+            w_max = w_half
+            print("Let's try again!")
         else:
-            if( me_w_half > me_w_min ):
-                w_max = w_half
-            else:
-                w_min = w_half
-#            print("Let's try again!")
-    u += 1
+            w_min = w_half
+            print("Let's try again!")
 
 
 
@@ -147,9 +154,9 @@ while( u < num_epochs ):
 
 
 
-print( f"w_half = {w_half:20} | me_half = {me_half:20}" )
-print( f"w_min = {w_min:20} | me_w_min = {me_w_min:20}" )
-print( f"w_max = {w_max:20} | me_w_max = {me_w_max:20}" )
+#print( f"w_half = {w_half:20} | me_w_half = {me_w_half:20}" )
+#print( f"w_min  = {w_min:20} | me_w_min = {me_w_min:20}" )
+#print( f"w_max  = {w_max:20} | me_w_max = {me_w_max:20}" )
 
 
 

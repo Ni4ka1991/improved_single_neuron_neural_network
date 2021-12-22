@@ -146,38 +146,36 @@ def me_critical_points_calculation( var_min, var_max, len_of_data ):
     return tuple( me_critical_points )
 
 ###create an INITIAL tuple of ME in max, min and half points in Real-Root Isolation Points  
-ME_critical_points = me_critical_points_calculation( w_min, w_max, data_quantity ) 
+ME_critical_points = list( me_critical_points_calculation( w_min, w_max, data_quantity )) 
 
 ###
+
 for i in range( num_epochs ):
     
     print( "\n" + "#" * 12 )
     print( f"Epoch NR {i + 1}" )
     
     if( ME_critical_points[0] <= max_error ):
-        print( f"\nW_supper_hero (me_w_min) = {ME_critical_points[0]:20}\n" )
+        print( f"\nW_supper_hero (me_w_min) = {ME_critical_points[0] :20 }\n" )
         break
     elif( ME_critical_points[-1] <= max_error ):
-        print( f"\nW_supper_hero (me_w_max) = {ME_critical_points[-1]:20}\n" )
+        print( f"\nW_supper_hero (me_w_max) = {ME_critical_points[-1] :20}\n" )
         break
     
     elif( ME_critical_points[1] <= max_error ):
-        print( f"\nW_supper_hero (me_w_half) = {ME_critical_points[1]:20}\n" )
+        print( f"\nW_supper_hero (me_w_half) = {ME_critical_points[1] :20}\n" )
         break
     
     else:
-        print("Let's try again!")
         print( ME_critical_points )
-#        ME_critical_points = me_critical_points_calculation( w_min, w_max, data_quantity ) #create a tuple of ME in NEW max, min and half W   
-#        plt.plot( ME_critical_points, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
-#        plt.show()
+        w_min = min( ME_critical_points )
+        W_max = max( ME_critical_points )
+        ME_critical_points.remove( W_max )
 
-#        if( me_w_half > me_w_min ):
-#            w_max = w_half
-#            print("Let's try again!")
-#        else:
-#            w_min = w_half
-#            print("Let's try again!")
+        print( ME_critical_points )
+        input( "hit ..." )
+#        print("Let's try again!")
+#        print( ME_critical_points )
 
 
 

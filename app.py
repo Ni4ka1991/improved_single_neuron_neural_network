@@ -69,8 +69,8 @@ def neuron_work( w, len_of_data ):
 
 
 # TRAIN !!!!!
-num_epochs = 5
-max_error = 2
+num_epochs = 10
+max_error = 1.3
 W_min_errors = []
 
 #Biases = [b]
@@ -81,39 +81,51 @@ system( "clear" )
 
 ## REAL-ROOT ISOLATION
 
-k = 0 
-while k < 20:
+
+###1. create a one table of n-random weights values: w + random => calc Y_pred(w+dW) => calc ME(Y_pred) => create dict{w+dW : ME} 
+###2. select ONE minim error and corresponding value of weight
+
+def random_min_error( n, weight, len_of_data ):
     data_table = {}                             #create an empty dictionary
     
-    ### w + random => calc Y_pred(w+dW) => calc ME(Y_pred) => create dict{w+dW : ME} 
-    for i in range( 40 ):
+    for i in range( n ):
         dW = np.random.normal()
-        w += dW
-        ME = neuron_work( w, data_quantity )     #ME - mean error
-        data_table[w] = ME
-    
+        weight += dW
+        ME = neuron_work( weight, len_of_data )     #ME - mean error
+        data_table[weight] = ME
+
     ###convert output dictionary to np.array
     data = list( data_table.items( ))            #convert dict to list
     np_data_table = np.array( data )             #convert list to np.array
-    
     
     ###search w with min error in np.array
     w_min, e_min = np_data_table.min( axis = 0 )
     i, j = np.argmin(np_data_table, axis = 0 ) #индекс минимального элемента в столбце сверху-j
     w_min_error = np_data_table[ j, 0 ]
-    
-    ###create a list of w's with min err
-    W_min_errors.append( w_min_error )
-    
-    k += 1
+    return w_min_error
+
+
+### out a LIST of n-w_minim errors values 
+def list_w_min_errors( n, weight, len_of_data ):
+    W_min_errors = []
+    for i in range( n ):
+        w_min_err = random_min_error( 20, weight, len_of_data )
+        W_min_errors.append( w_min_err )
+    return W_min_errors
+
+W_min_errors = list_w_min_errors( 20, w, data_quantity )
+
+
+### search w_min and w_max in W_min_errors list REAL-ROOT ISOLATION POINTS!!!
+w_min = min( W_min_errors )
+w_max = max( W_min_errors )
+
 #P.S. разброс значений в каждом отдельном цикле while получается существенный. От -64 до +70 
 
 
-## APPLICATION HALF-DIVISION METHOD
 
-### search w_min and w_max in W_min_errors list
-w_min = min( W_min_errors )
-w_max = max( W_min_errors )
+
+## APPLICATION HALF-DIVISION METHOD
 
 ### create a tuple of ME in max, min and half W
 def me_critical_points_calculation( var_min, var_max, len_of_data ):
@@ -157,8 +169,8 @@ for i in range( num_epochs ):
         print("Let's try again!")
         print( ME_critical_points )
 #        ME_critical_points = me_critical_points_calculation( w_min, w_max, data_quantity ) #create a tuple of ME in NEW max, min and half W   
-        plt.plot( ME_critical_points, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
-        plt.show()
+#        plt.plot( ME_critical_points, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+#        plt.show()
 
 #        if( me_w_half > me_w_min ):
 #            w_max = w_half

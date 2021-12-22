@@ -10,8 +10,11 @@ plt.style .use( 'seaborn-whitegrid' )
 
 
 #EXPERIMENT DATA  !!! REAL DATA !!!
-time_m = [ 0, 5,  10,  20,  60 ]      # boiler running time ( min ) 
-temp_c = [ 0, 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C 
+#time_m = [ 0, 5,  10,  20,  60 ]      # boiler running time ( min ) 
+#temp_c = [ 0, 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C 
+
+time_m = [ 5,  10,  20,  60 ]      # boiler running time ( min ) 
+temp_c = [ 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C 
 
 temp_hw = [ 15, 16.5, 18.5,  20,   22,  23,  23.5, 24,  25 ]
 
@@ -172,22 +175,17 @@ print()
 #view data
 
 
-time_temp = {}
-
-print( f"  temp | time " )
-print( "-" * 18 )
+time_hw = []
 
 for i in range( len( temp_hw ) ):
     time = np.square(np.square( temp_hw[i]/w ))
     time = time.round( 1 )
-    print( f"{temp_hw[i]:5}  | {time:5} " )
-
-    time_temp[time] = temp_hw[i]
+    time_hw.append( time )
 
 
-#plt.plot( time_temp, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
-#plt.show()
-#print( time_temp )
+plt.plot( time_hw, temp_hw, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
+plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+plt.show()
 
 
 

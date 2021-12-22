@@ -127,55 +127,45 @@ w_max = max( W_min_errors )
 
 ## APPLICATION HALF-DIVISION METHOD
 
-### create a tuple of ME in max, min and half W
+### create a tuple of ME in max, min
 def me_critical_points_calculation( var_min, var_max, len_of_data ):
     
     me_critical_points = []
     
-    w_half = ( var_min + var_max ) / 2
-    
     me_w_min  = neuron_work( var_min,   len_of_data ) 
     me_critical_points.append( me_w_min )
-    
-    me_w_half = neuron_work(  w_half,   len_of_data ) 
-    me_critical_points.append( me_w_half )
     
     me_w_max  = neuron_work( var_max,   len_of_data ) 
     me_critical_points.append( me_w_max )
     
     return tuple( me_critical_points )
 
+
 ###create an INITIAL tuple of ME in max, min and half points in Real-Root Isolation Points  
-ME_critical_points = list( me_critical_points_calculation( w_min, w_max, data_quantity )) 
+ME_critical_points = me_critical_points_calculation( w_min, w_max, data_quantity )                 #tuple 
+ME_critical_points_list = list( me_critical_points_calculation( w_min, w_max, data_quantity ))     #list for using in loop
 
 ###
+### start data
+w_max  = ME_critical_points[-1]
+w_min  = ME_critical_points[0]
 
 for i in range( num_epochs ):
     
     print( "\n" + "#" * 12 )
     print( f"Epoch NR {i + 1}" )
     
-    if( ME_critical_points[0] <= max_error ):
+    if( w_min <= max_error ):
         print( f"\nW_supper_hero (me_w_min) = {ME_critical_points[0] :20 }\n" )
         break
-    elif( ME_critical_points[-1] <= max_error ):
+    elif( w_max <= max_error ):
         print( f"\nW_supper_hero (me_w_max) = {ME_critical_points[-1] :20}\n" )
         break
     
-    elif( ME_critical_points[1] <= max_error ):
-        print( f"\nW_supper_hero (me_w_half) = {ME_critical_points[1] :20}\n" )
-        break
-    
     else:
-        print( ME_critical_points )
-        w_min = min( ME_critical_points )
-        W_max = max( ME_critical_points )
-        ME_critical_points.remove( W_max )
-
-        print( ME_critical_points )
-        input( "hit ..." )
-#        print("Let's try again!")
-#        print( ME_critical_points )
+        w_half = ( w_max + w_min ) / 2
+        w_max = w_half        
+        print( f" w_min = {w_min:20} : w_max = {w_max:20} : w_half = {w_half:20}" )       
 
 
 

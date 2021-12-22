@@ -13,6 +13,8 @@ plt.style .use( 'seaborn-whitegrid' )
 time_m = [ 0, 5,  10,  20,  60 ]      # boiler running time ( min ) 
 temp_c = [ 0, 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C 
 
+temp_hw = [ 15, 16.5, 18.5,  20,   22,  23,  23.5, 24,  25 ]
+
 #plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
 
@@ -35,10 +37,10 @@ def neuronFire( w, x ):
 
 
 ##
-def create_predicted_data_list( w, len_of_data ):
+def create_predicted_data_list( w, len_of_data, time_data ):
     Y = []   #an empty list of predicted data
     for i in range( len_of_data ):
-        Y.append( neuronFire( w, time_m[i] ))
+        Y.append( neuronFire( w, time_data[i] ))
     return Y
 ##
 
@@ -62,14 +64,14 @@ def meanError( err_list, len_of_data ):
 
 ##
 def neuron_work( w, len_of_data ):
-    Y_predicted = create_predicted_data_list( w, len_of_data )
+    Y_predicted = create_predicted_data_list( w, len_of_data, time_m )
     ERR = errors_list( temp_c, Y_predicted, len_of_data )
     return meanError( ERR, len_of_data )
 ##    
 
 
 # TRAIN !!!!!
-num_epochs = 20
+num_epochs = 10_000
 max_error = 1.37
 W_min_errors = []
 
@@ -145,22 +147,47 @@ for i in range( num_epochs ):
     if( me_w_min <= max_error ):
         print( f"\nW_supper_hero (me_w_min) = {ME_critical_points[0] :20 }\n" )
         break
+    
     elif( me_w_max <= max_error ):
         print( f"\nW_supper_hero (me_w_max) = {ME_critical_points[-1] :20}\n" )
         break
+    
     elif( me_w_max == me_w_min ):
         print( "Nice to see you!!!" )
-   
-   else:
+        break
+    
+    else:
         w_half = ( w_max + w_min ) / 2
         print( f" w_min = {w_min:20} : w_max = {w_max:20} : w_half = {w_half:20}" )       
         w_max = w_half        
         print( f" w_min = {w_min:20} : w_max = {w_max:20} " )       
 
+input( "hit Enter" )
+system( "clear" )
 print( f" w_min = {w_min: 20} " )
-        
-    
+print()
 
+#### END ####
+
+#view data
+
+
+time_temp = {}
+
+print( f"  temp | time " )
+print( "-" * 18 )
+
+for i in range( len( temp_hw ) ):
+    time = np.square(np.square( temp_hw[i]/w ))
+    time = time.round( 1 )
+    print( f"{temp_hw[i]:5}  | {time:5} " )
+
+    time_temp[time] = temp_hw[i]
+
+
+#plt.plot( time_temp, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+#plt.show()
+#print( time_temp )
 
 
 

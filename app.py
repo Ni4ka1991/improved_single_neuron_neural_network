@@ -133,26 +133,6 @@ w_max = max( W_min_errors )
 
 ## APPLICATION HALF-DIVISION METHOD
 
-### create a tuple of ME in max, min
-def me_critical_points_calculation( var_min, var_max, len_of_data ):
-    
-    me_critical_points = []
-    
-    me_w_min  = neuron_work( var_min,   len_of_data ) 
-    me_critical_points.append( me_w_min )
-    
-    me_w_max  = neuron_work( var_max,   len_of_data ) 
-    me_critical_points.append( me_w_max )
-    
-    return tuple( me_critical_points )
-
-
-###create an INITIAL tuple of ME in max, min and half points in Real-Root Isolation Points  
-ME_critical_points = me_critical_points_calculation( w_min, w_max, data_quantity )                 #tuple 
-ME_critical_points_list = list( me_critical_points_calculation( w_min, w_max, data_quantity ))     #list for using in loop
-
-###
-### start data
 
 for i in range( num_epochs ):
     

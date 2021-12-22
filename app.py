@@ -70,7 +70,7 @@ def neuron_work( w, len_of_data ):
 
 # TRAIN !!!!!
 num_epochs = 5
-max_error = 1
+max_error = 2
 W_min_errors = []
 
 #Biases = [b]
@@ -115,36 +115,51 @@ while k < 20:
 w_min = min( W_min_errors )
 w_max = max( W_min_errors )
 
+def me_critical_points_calculation( var_min, var_max, len_of_data ):
+    
+    me_critical_points = []
+    
+    w_half = ( var_min + var_max ) / 2
+    
+    me_w_min  = neuron_work( var_min,   len_of_data ) 
+    me_critical_points.append( me_w_min )
+    
+    me_w_half = neuron_work(  w_half,   len_of_data ) 
+    me_critical_points.append( me_w_half )
+    
+    me_w_max  = neuron_work( var_max,   len_of_data ) 
+    me_critical_points.append( me_w_max )
+    
+    return tuple( me_critical_points )
+
+ME_critical_points = me_critical_points_calculation( w_min, w_max, data_quantity )    
+print( ME_critical_points )
+input( "hit ..." )
+
 ###
 for i in range( num_epochs ):
     print( "\n" + "#" * 12 )
     print( f"Epoch NR {i + 1}" )
-    w_half = ( w_min + w_max ) / 2
-    me_w_half = neuron_work( w_half,  data_quantity ) 
-    me_w_min  = neuron_work( w_min,   data_quantity ) 
-    me_w_max  = neuron_work( w_max,   data_quantity ) 
-    print( f"me_w_min = {me_w_min:20}" )
-    print( f"me_w_max = {me_w_max:20}" )
-    print( f"me_w_half = {me_w_half:20}" )
     
-    if( me_w_min <= max_error ):
-        print( f"\nW_supper_hero (me_w_min) = {me_w_min:20}\n" )
+    if( ME_critical_points[0] <= max_error ):
+        print( f"\nW_supper_hero (me_w_min) = {ME_critical_points[0]:20}\n" )
         break
-    elif( me_w_max <= max_error ):
-        print( f"\nW_supper_hero (me_w_max) = {me_w_max:20}\n" )
+    elif( ME_critical_points[-1] <= max_error ):
+        print( f"\nW_supper_hero (me_w_max) = {ME_critical_points[-1]:20}\n" )
         break
     
-    elif( me_w_half <= max_error ):
-        print( f"\nW_supper_hero (me_w_half) = {me_w_half:20}\n" )
+    elif( ME_critical_points[1] <= max_error ):
+        print( f"\nW_supper_hero (me_w_half) = {ME_critical_points[1]:20}\n" )
         break
     
     else:
-        if( me_w_half > me_w_min ):
-            w_max = w_half
-            print("Let's try again!")
-        else:
-            w_min = w_half
-            print("Let's try again!")
+        print("Let's try again!")
+#        if( me_w_half > me_w_min ):
+#            w_max = w_half
+#            print("Let's try again!")
+#        else:
+#            w_min = w_half
+#            print("Let's try again!")
 
 
 

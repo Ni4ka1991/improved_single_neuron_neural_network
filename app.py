@@ -69,8 +69,8 @@ def neuron_work( w, len_of_data ):
 
 
 # TRAIN !!!!!
-num_epochs = 10
-max_error = 1.3
+num_epochs = 20
+max_error = 1.37
 W_min_errors = []
 
 #Biases = [b]
@@ -113,13 +113,19 @@ def list_w_min_errors( n, weight, len_of_data ):
         W_min_errors.append( w_min_err )
     return W_min_errors
 
-W_min_errors = list_w_min_errors( 20, w, data_quantity )
+### out a list of 33 weights with min errors
+W_min_errors = list_w_min_errors( 33, w, data_quantity )
 
 
 ### search w_min and w_max in W_min_errors list REAL-ROOT ISOLATION POINTS!!!
 w_min = min( W_min_errors )
 w_max = max( W_min_errors )
 
+# --- helpfull view
+#print(w_min)
+#print(w_max)
+#input("hit")
+# ----------------
 #P.S. разброс значений в каждом отдельном цикле while получается существенный. От -64 до +70 
 
 
@@ -147,28 +153,31 @@ ME_critical_points_list = list( me_critical_points_calculation( w_min, w_max, da
 
 ###
 ### start data
-w_max  = ME_critical_points[-1]
-w_min  = ME_critical_points[0]
 
 for i in range( num_epochs ):
+    
+    me_w_min  = neuron_work( w_min,   data_quantity ) 
+    me_w_max  = neuron_work( w_max,   data_quantity ) 
     
     print( "\n" + "#" * 12 )
     print( f"Epoch NR {i + 1}" )
     
-    if( w_min <= max_error ):
+    if( me_w_min <= max_error ):
         print( f"\nW_supper_hero (me_w_min) = {ME_critical_points[0] :20 }\n" )
         break
-    elif( w_max <= max_error ):
+    elif( me_w_max <= max_error ):
         print( f"\nW_supper_hero (me_w_max) = {ME_critical_points[-1] :20}\n" )
         break
-    
-    else:
+    elif( me_w_max == me_w_min ):
+        print( "Nice to see you!!!" )
+   
+   else:
         w_half = ( w_max + w_min ) / 2
-        w_max = w_half        
         print( f" w_min = {w_min:20} : w_max = {w_max:20} : w_half = {w_half:20}" )       
+        w_max = w_half        
+        print( f" w_min = {w_min:20} : w_max = {w_max:20} " )       
 
-
-
+print( f" w_min = {w_min: 20} " )
         
     
 

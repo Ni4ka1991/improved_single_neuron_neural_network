@@ -20,7 +20,7 @@ temp_c = [ 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C
 temp_hw = [ 15, 16.5, 18.5,  20,   22,  23,  23.5, 24,  25 ]
 
 ##view experimental data
-plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+#plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
 
 # GO-GO ###########################################################################################
@@ -30,31 +30,31 @@ plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, mar
 data_quantity = len( time_m ) # lenght of real data list
 w = 25
 b = 7
-a = 5
+x = 5
 # PREDICTED DATA !!!
 ##
-def neuronFire( x, a, b ):
+def neuronFire( w, x, b ):
 #    y = w * np.sqrt( np.sqrt( x ))
 #    y = w * ( 1 - e**( u / b ))
-    y = a * ( 1 - math.pow( math.e, ( -1 * x / b ))) #три настраиваемых параметра x = time_m, a,b = coeff
+    y = w * ( 1 - math.pow( math.e, ( -1 * x / b ))) # x = time_m, w,b = coeff
 #    y = w * c^( u + x ) + b
     return y
 ##
 
 
 ## MY neuron calculate result for experimental data by MY func
-def create_predicted_data_list( x, a, b, len_of_data ):
+def create_predicted_data_list( w, x, b, len_of_data ):
     Y = []   #an empty list of predicted data
     for i in range( len_of_data ):
-        Y.append( neuronFire( time_m[i], a, b ))
+        Y.append( neuronFire( w, time_m[i], b ))
     return Y
 ##
 
 ##view predicted data
-Y_pred = create_predicted_data_list( time_m, a, b, data_quantity )
+#Y_pred = create_predicted_data_list( w, time_m, b, data_quantity )
 
-plt.plot( time_m, Y_pred, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
-plt.show()
+#plt.plot( time_m, Y_pred, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
+#plt.show()
 ##
 
 
@@ -84,8 +84,9 @@ def neuron_work( w, x, b, len_of_data ):
     return meanError( ERR, len_of_data )
 ##    
 
-#neuron_err = neuron_work( w, x = 5, b, data_quantity )
-
+neuron_err = neuron_work( w, x, b, data_quantity )
+print(neuron_err)
+input( "hit...  " )
 # TRAIN !!!!!
 num_epochs = 10_000
 max_error = 1.37

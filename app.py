@@ -20,7 +20,8 @@ temp_c = [ 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C
 temp_hw = [ 15, 16.5, 18.5,  20,   22,  23,  23.5, 24,  25 ]
 
 ##view experimental data
-#plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+print(temp_c)
+plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
 
 # GO-GO ###########################################################################################
@@ -31,13 +32,12 @@ data_quantity = len( time_m ) # lenght of real data list
 w = 25
 b = 7
 x = 5
+
+
 # PREDICTED DATA !!!
 ##
 def neuronFire( w, x, b ):
-#    y = w * np.sqrt( np.sqrt( x ))
-#    y = w * ( 1 - e**( u / b ))
     y = w * ( 1 - math.pow( math.e, ( -1 * x / b ))) # x = time_m, w,b = coeff
-#    y = w * c^( u + x ) + b
     return y
 ##
 
@@ -51,9 +51,9 @@ def create_predicted_data_list( w, x, b, len_of_data ):
 ##
 
 ##view predicted data
-#Y_pred = create_predicted_data_list( w, time_m, b, data_quantity )
-
-#plt.plot( time_m, Y_pred, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
+Y_pred = create_predicted_data_list( w, time_m, b, data_quantity )
+print( Y_pred )
+plt.plot( time_m, Y_pred, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
 ##
 
@@ -61,13 +61,19 @@ def create_predicted_data_list( w, x, b, len_of_data ):
 # ERRORS PROCESSING !!! 
 ##
 
-##create a LIST of mean(a+b/2) error in each point!!!
+##модуль разности данных в каждой отдельно взятой точке
 def errors_list( Y_real, Y_predicted, len_of_data ):
     ERR = []
     for i in range( len_of_data ):
         ERR.append( abs( Y_real[i] - Y_predicted[i] ))
     return ERR
 ##
+##view mear error in each point
+point_mean_error = errors_list( temp_c, Y_pred, data_quantity )
+print( point_mean_error )
+plt.plot( point_mean_error, color = "blue", linestyle="solid", linewidth = 1, marker = "x" )
+
+#plt.show()
 
 ##
 ##calculation average general error

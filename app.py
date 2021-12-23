@@ -117,16 +117,18 @@ def random_min_error( n, w, x, b, len_of_data ):
         
         dW = np.random.normal()
         dB = np.random.normal()
-        
+         
         w += dW
         key_data_table.append( w )
         b += dB
         key_data_table.append( b )
-        
-        print( f"A {n} pair of random values: {key_data_table}" )
+
+        print( f"A {i + 1} pair of random values: {key_data_table}" )
         key_data_table = tuple( key_data_table )
-        
-        ME = neuron_work( w, x, b, len_of_data )     #ME - mean error
+        try:
+            ME = neuron_work( w, x, b, len_of_data )     #ME - mean error
+        except OverflowError:
+            ME = float('inf')
 
         data_table[ key_data_table ] = ME
     
@@ -161,8 +163,8 @@ def list_w_b_min_errors( n, w, x, b, len_of_data ):
 
 ### out a list of 33 weights with min errors
 W_B_min_errors = list_w_b_min_errors( 33, w, time_m, b, data_quantity )
-print( "List of values with minim values: {W_B_min_errors}" )
-
+print( f"List of values with minim ME: w and b => {W_B_min_errors}" )
+input("hit")
 
 ### search w_min and w_max in W_min_errors list REAL-ROOT ISOLATION POINTS!!!
 w_min = min( W_min_errors )

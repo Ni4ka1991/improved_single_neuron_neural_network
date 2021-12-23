@@ -2,6 +2,7 @@
 
 
 import numpy as np
+import math
 from os import system
 import matplotlib
 import matplotlib.pyplot as plt
@@ -18,7 +19,8 @@ temp_c = [ 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C
 
 temp_hw = [ 15, 16.5, 18.5,  20,   22,  23,  23.5, 24,  25 ]
 
-#plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+##view experimental data
+plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
 
 # GO-GO ###########################################################################################
@@ -26,31 +28,40 @@ temp_hw = [ 15, 16.5, 18.5,  20,   22,  23,  23.5, 24,  25 ]
 # NEURON 
 
 data_quantity = len( time_m ) # lenght of real data list
-w = 11
-b = 0
-a = 0
-S = []
-
+w = 25
+b = 7
+a = 5
 # PREDICTED DATA !!!
 ##
-def neuronFire( w, x ):
-    y = w * np.sqrt( np.sqrt( x ))
+def neuronFire( x, a, b ):
+#    y = w * np.sqrt( np.sqrt( x ))
+#    y = w * ( 1 - e**( u / b ))
+    y = a * ( 1 - math.pow( math.e, ( -1 * x / b ))) #три настраиваемых параметра x = time_m, a,b = coeff
+#    y = w * c^( u + x ) + b
     return y
 ##
 
 
-##
-def create_predicted_data_list( w, len_of_data, time_data ):
+## MY neuron calculate result for experimental data by MY func
+def create_predicted_data_list( x, a, b, len_of_data ):
     Y = []   #an empty list of predicted data
     for i in range( len_of_data ):
-        Y.append( neuronFire( w, time_data[i] ))
+        Y.append( neuronFire( time_m[i], a, b ))
     return Y
 ##
 
+##view predicted data
+Y_pred = create_predicted_data_list( time_m, a, b, data_quantity )
+
+plt.plot( time_m, Y_pred, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
+plt.show()
+##
 
 
 # ERRORS PROCESSING !!! 
 ##
+
+##create a LIST of mean(a+b/2) error in each point!!!
 def errors_list( Y_real, Y_predicted, len_of_data ):
     ERR = []
     for i in range( len_of_data ):
@@ -59,6 +70,7 @@ def errors_list( Y_real, Y_predicted, len_of_data ):
 ##
 
 ##
+##calculation average general error
 def meanError( err_list, len_of_data ):
     for i in range( len_of_data ):
         E = sum( err_list ) / len_of_data
@@ -66,12 +78,13 @@ def meanError( err_list, len_of_data ):
 ##
 
 ##
-def neuron_work( w, len_of_data ):
-    Y_predicted = create_predicted_data_list( w, len_of_data, time_m )
+def neuron_work( w, x, b, len_of_data ):
+    Y_predicted = create_predicted_data_list( w, x, b, len_of_data )
     ERR = errors_list( temp_c, Y_predicted, len_of_data )
     return meanError( ERR, len_of_data )
 ##    
 
+#neuron_err = neuron_work( w, x = 5, b, data_quantity )
 
 # TRAIN !!!!!
 num_epochs = 10_000
@@ -143,9 +156,6 @@ for i in range( num_epochs ):
     
     me_w_min  = neuron_work( w_min,   data_quantity ) 
     me_w_max  = neuron_work( w_max,   data_quantity ) 
-    
-    print( "\n" + "#" * 12 )
-    print( f"Epoch NR {i + 1}" )
     
     if( me_w_min <= max_error ):
         print( f"\nW_supper_hero (me_w_min) = {ME_critical_points[0] :20 }\n" )

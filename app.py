@@ -20,8 +20,8 @@ temp_c = [ 15, 20,  23,  25 ]      # temp in the house (C) max = 100 C
 temp_hw = [ 15, 16.5, 18.5,  20,   22,  23,  23.5, 24,  25 ]
 
 ##view experimental data
-print(temp_c)
-plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
+#print(temp_c)
+#plt.plot( time_m, temp_c, color = "green", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
 
 # GO-GO ###########################################################################################
@@ -51,9 +51,9 @@ def create_predicted_data_list( w, x, b, len_of_data ):
 ##
 
 ##view predicted data
-Y_pred = create_predicted_data_list( w, time_m, b, data_quantity )
-print( Y_pred )
-plt.plot( time_m, Y_pred, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
+#Y_pred = create_predicted_data_list( w, time_m, b, data_quantity )
+#print( Y_pred )
+#plt.plot( time_m, Y_pred, color = "red", linestyle="solid", linewidth = 1, marker = "x" )
 #plt.show()
 ##
 
@@ -69,11 +69,8 @@ def errors_list( Y_real, Y_predicted, len_of_data ):
     return ERR
 ##
 ##view mear error in each point
-point_mean_error = errors_list( temp_c, Y_pred, data_quantity )
-print( point_mean_error )
-plt.plot( point_mean_error, color = "blue", linestyle="solid", linewidth = 1, marker = "x" )
-
-#plt.show()
+#point_mean_error = errors_list( temp_c, Y_pred, data_quantity )
+#print( point_mean_error )
 
 ##
 ##calculation average general error
@@ -90,16 +87,17 @@ def neuron_work( w, x, b, len_of_data ):
     return meanError( ERR, len_of_data )
 ##    
 
-neuron_err = neuron_work( w, x, b, data_quantity )
-print(neuron_err)
-input( "hit...  " )
+#neuron_err = neuron_work( w, x, b, data_quantity )
+#print(neuron_err)
+#input( "hit...  " )
+
+
 # TRAIN !!!!!
 num_epochs = 10_000
-max_error = 1.37
+max_error = 0.2
 W_min_errors = []
+B_min_errors = []
 
-#Biases = [b]
-#A = [a]
 
 
 system( "clear" )
@@ -110,36 +108,60 @@ system( "clear" )
 ###1. create a one table of n-random weights values: w + random => calc Y_pred(w+dW) => calc ME(Y_pred) => create dict{w+dW : ME} 
 ###2. select ONE minim error and corresponding value of weight
 
-def random_min_error( n, weight, len_of_data ):
+def random_min_error( n, w, x, b, len_of_data ):
+    
     data_table = {}                             #create an empty dictionary
     
     for i in range( n ):
+        key_data_table = []
+        
         dW = np.random.normal()
-        weight += dW
-        ME = neuron_work( weight, len_of_data )     #ME - mean error
-        data_table[weight] = ME
+        dB = np.random.normal()
+        
+        w += dW
+        key_data_table.append( w )
+        b += dB
+        key_data_table.append( b )
+        
+        print( f"A {n} pair of random values: {key_data_table}" )
+        key_data_table = tuple( key_data_table )
+        
+        ME = neuron_work( w, x, b, len_of_data )     #ME - mean error
+
+        data_table[ key_data_table ] = ME
+    
+    print("#")
+    print( data_table )
 
     ###convert output dictionary to np.array
     data = list( data_table.items( ))            #convert dict to list
-    np_data_table = np.array( data )             #convert list to np.array
+    np_data_table = np.array( data, dtype = 'object' )             #convert list to np.array
     
     ###search w with min error in np.array
-    w_min, e_min = np_data_table.min( axis = 0 )
+    w_b_min, e_min = np_data_table.min( axis = 0 )
+    print("#")
+    print( f"Val of min error == {e_min}" )
     i, j = np.argmin(np_data_table, axis = 0 ) #индекс минимального элемента в столбце сверху-j
-    w_min_error = np_data_table[ j, 0 ]
-    return w_min_error
+    w_b_min_error = np_data_table[ j, 0 ]
+    input( "hit ..." )
+    return w_b_min_error
 
+##view table of errors in func of random values w, b 
+#a = random_min_error( 40, w, time_m, b, data_quantity )
+#print(f"Values with min error: w => - {a} <= b ")
+#input( "hit ..." )
 
 ### out a LIST of n-w_minim errors values 
-def list_w_min_errors( n, weight, len_of_data ):
-    W_min_errors = []
+def list_w_b_min_errors( n, w, x, b, len_of_data ):
+    W_B_min_errors = []
     for i in range( n ):
-        w_min_err = random_min_error( 20, weight, len_of_data )
-        W_min_errors.append( w_min_err )
-    return W_min_errors
+        w_b_min_err = random_min_error( n, w, x, b, len_of_data )
+        W_B_min_errors.append( w_b_min_err )
+    return W_B_min_errors
 
 ### out a list of 33 weights with min errors
-W_min_errors = list_w_min_errors( 33, w, data_quantity )
+W_B_min_errors = list_w_b_min_errors( 33, w, time_m, b, data_quantity )
+print( "List of values with minim values: {W_B_min_errors}" )
 
 
 ### search w_min and w_max in W_min_errors list REAL-ROOT ISOLATION POINTS!!!
